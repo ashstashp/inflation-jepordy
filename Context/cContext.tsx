@@ -1,6 +1,7 @@
 // UpgradeContext.tsx
 // imports required library
 import React, { createContext, useState, useContext, ReactNode, useEffect} from 'react';
+import { useQ } from './qContext';
 
 // creates an interface: Upgrades
 interface Column {
@@ -13,6 +14,7 @@ interface CContextProps {
     addCol: () => void;
     removeCol: () => void;
     editCol: (id: number, c: string) => void;
+    setCols: (data: any) => void;
 }
 
 // creates UpgradeContext as a context using UpgradeContextProps
@@ -25,6 +27,7 @@ interface CProviderProps {
 
 // creates, and exports UpgradeProvider using UpgradeProviderProps
 export const CProvider: React.FC<CProviderProps> = ({children}) => {
+    const {addQ, removeQ, editPts} = useQ()
     // creates upgrades and setUpgrade
     const [columns, setC] = useState<Column[]>([// predefined upgrades
       {id: 1, c: "col1"},
@@ -39,20 +42,51 @@ export const CProvider: React.FC<CProviderProps> = ({children}) => {
           id: columns.length + 1,
           c: `col ${columns.length + 1}`
         }
-        setC((prevCol) => [...prevCol, newCol])
-      }
+        setC((prevCol) => {
+          const updated = [...prevCol, newCol];
+          addQ();
+        let x = 1;
+        for (let i = 0; i <= (updated.length * 5); i++) {
+          editPts(i, 100*x);
+          if (i%updated.length == 0 && i != 0) {
+            x += 1
+          };
+        };
+
+          return updated;
+        });
+      };
     const editCol = (id: number, c: string) => {
       setC(prevItems => prevItems.map(item => item.id == id? {... item, c: c } : item)
-      )
+      );
     };
     const removeCol = () => {
-      setC((prevData) => prevData.filter(item => item.id !== columns.length))
+      setC((prevData) => {
+        const updated = prevData.slice(0, -1);
+      
+        for (let i = 0; i < 5; i++) {
+          removeQ();
+        };
+        let x = 1;
+        for (let i = 0; i < (updated.length * 5); i++) {
+          editPts(i, 100*x);
+          if (i%updated.length == 0 && i != 0) {
+            x += 1
+          };
+        };
+
+        return updated
+      });
     };
+
+    const setCols = (data: any) => {
+      setC(data)
+    }
 
 
     // returns everything in QProvider
     return(
-    <CContext.Provider value={{ columns, addCol, editCol, removeCol }}>
+    <CContext.Provider value={{ columns, addCol, editCol, removeCol, setCols }}>
       {children}
     </CContext.Provider>
     )

@@ -63,61 +63,179 @@ const Home: React.FC = ({}) => {
     
     return(
         <>
-        <View style={[setStyles.row, {backgroundColor:"#eee", alignItems:"center", justifyContent:"center",}]}>
+        <View 
+          style={[setStyles.row, 
+            {backgroundColor:"#eee", 
+              alignItems:"center", 
+              justifyContent:"center",}]}>
 
           {/* Team 1-2 */}
-          <View style={[setStyles.container, {backgroundColor:"#fff", margin:50, borderColor:"#000", borderWidth:2, alignItems:"center", justifyContent:"center", width:"10%"}]}>
-            <TextInput 
-            style={[setStyles.text, {color:"#000", marginBottom:5, textAlign:"center", maxWidth:'90%'}]}
-            value={tName1}
-            onChangeText={setTName1}/>
-            <Text style={[setStyles.text, {color:"#000", marginBottom:5, marginTop:0}]}>{team1}</Text>
-            <View style={[setStyles.row, {flexDirection:"row", alignItems:"center", justifyContent:"center"}]}>
-            <TouchableOpacity style={[{margin:10, marginTop:0}]}
-              onPress={() => {setTeam1(team1+points);}}>
-              <Ionicons name={"add-circle-outline"} color={"#000"} size={30}/>
-            </TouchableOpacity>
-            <TouchableOpacity style={[{margin:10, marginTop:0}]}
-              onPress={() => setTeam1(team1-points)}>
-              <Ionicons name={"remove-circle-outline"} color={"#000"} size={30}/>
-            </TouchableOpacity>
-            </View>
-          </View>
+          {/* Box View */}
+          <View 
+            style={[setStyles.container, 
+              {backgroundColor:"#fff", 
+                margin:50, borderColor:"#000", 
+                borderWidth:2, alignItems:"center", 
+                justifyContent:"center", 
+                width:"10%"}]}>
+              
+              {/* Team Name, Editable */}
+              <TextInput 
+                style={[setStyles.text, 
+                  {color:"#000", 
+                    marginBottom:5, 
+                    textAlign:"center", 
+                    maxWidth:'90%'}]}
+                value={tName1}
+                onChangeText={setTName1}/>
+
+              {/* Team Points */}
+              <Text 
+                style={[setStyles.text, 
+                {color:"#000", marginBottom:5, marginTop:0}]}
+                >
+                {team1}
+              </Text>
+
+              {/* Add/Remove points Buttons */}
+              <View 
+              style={[setStyles.row, 
+              {flexDirection:"row", 
+                alignItems:"center", 
+                justifyContent:"center"}]}>
+              
+                {/* Add Button */}
+                <TouchableOpacity 
+                  style={[{margin:10, marginTop:0}]}
+                  onPress={() => {setTeam1(team1+points);}}>
+
+                  <Ionicons name={"add-circle-outline"} color={"#000"} size={30}/>
+
+                </TouchableOpacity>
+
+                {/* Remove Button */}
+                <TouchableOpacity 
+                  style={[{margin:10, marginTop:0}]}
+                  onPress={() => setTeam1(team1-points)}>
+
+                  <Ionicons name={"remove-circle-outline"} color={"#000"} size={30}/>
+
+                </TouchableOpacity>
+              </View>
+        </View>
 
           <View style={[setStyles.container, {backgroundColor:"#fff", margin:50, borderColor:"#000", borderWidth:2, alignItems:"center", justifyContent:"center", width: "10%"}]}>
             <TextInput 
-              style={[setStyles.text, {color:"#000", marginBottom:5, textAlign:"center", maxWidth:'90%'}]}
+              style={[setStyles.text, 
+                {color:"#000", 
+                  marginBottom:5, 
+                  textAlign:"center", 
+                  maxWidth:'90%'}]}
               value={tName2}
               onChangeText={setTName2}/>
-            <Text style={[setStyles.text, {color:"#000", marginBottom:5, marginTop:0}]}>{team2}</Text>
-            <View style={[setStyles.row, {flexDirection:"row", alignItems:"center", justifyContent:"center"}]}>
-            <TouchableOpacity style={[{margin:10, marginTop:0}]}
-              onPress={() => setTeam2(team2+points)}>
-              <Ionicons name={"add-circle-outline"} color={"#000"} size={30}/>
-            </TouchableOpacity>
-            <TouchableOpacity style={[{margin:10, marginTop:0}]}
-              onPress={() => setTeam2(team2-points)}>
-              <Ionicons name={"remove-circle-outline"} color={"#000"} size={30}/>
-            </TouchableOpacity>
+
+            <Text 
+              style={[setStyles.text, 
+                {color:"#000", marginBottom:5, marginTop:0}]}
+            >
+              {team2}
+            </Text>
+
+            <View 
+              style={[setStyles.row, 
+              {flexDirection:"row", 
+                alignItems:"center", 
+                justifyContent:"center"}]}>
+
+              <TouchableOpacity 
+                style={[{margin:10, marginTop:0}]}
+                onPress={() => setTeam2(team2+points)}>
+
+                <Ionicons name={"add-circle-outline"} color={"#000"} size={30}/>
+
+              </TouchableOpacity>
+
+              <TouchableOpacity 
+                style={[{margin:10, marginTop:0}]}
+                onPress={() => setTeam2(team2-points)}>
+
+                <Ionicons name={"remove-circle-outline"} color={"#000"} size={30}/>
+
+              </TouchableOpacity>
             </View>
           </View>
 
           {/* Col Names & Q Boxes*/}
             <View style={[{flexDirection:'column',alignItems:"center", justifyContent:"center", height:"100%", width:"35%",}]}>
               {/* Col Names */}
-              <FlatList style={[setStyles.container, {margin:10, height:"10%", width:"95%",}]}
+              {/* <FlatList style={[setStyles.container, {margin:10, height:"10%", width:"95%",}]}
+                  key={columns.length}
                   data={columns}
-                  numColumns={columns.length}
+                  horizontal
                   renderItem={({ item }) => (
-                      <View style={[setStyles.row, {alignItems: 'center', justifyContent:'center', marginBottom:0, width:`${100/columns.length}%`}]}>
-                        <Text style={[setStyles.text, {margin:10, marginTop:10, marginBottom:10, textAlign:'center'}]}>{item.c}</Text>    
-                      </View>
-                    )}
-                  // Extracts the id 
-                  keyExtractor={(item) => item.id}/>
 
-                {/* Q Boxes */}
+                      <View 
+                        style={[setStyles.container, 
+                          {alignItems: 'center', 
+                            justifyContent:'center', 
+                            marginBottom:0, 
+                            width:`${100/columns.length}%`}]}>
+
+                        <Text 
+                          style={[setStyles.text, 
+                            {margin:10, 
+                              marginTop:10, 
+                              marginBottom:10, 
+                              textAlign:'center'}]}
+                        >
+                          {item.c}
+                        </Text>  
+
+                      </View>
+                  )}
+
+                  // Extracts the id -- nah, really?
+                  keyExtractor={(item) => item.id}
+                  
+                /> */}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    margin: 10,
+                    height: 50,
+                    width: "95%",
+                    justifyContent: "space-between", // spreads headers evenly
+                    alignItems: "center",
+                  }}
+                >
+                  {columns.map((item) => (
+                    <View
+                      key={item.id}
+                      style={{
+                        width: 100,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "#eee",
+                        padding: 10,
+                        borderRadius: 5,
+                      }}
+                    >
+                      <Text 
+                          style={[setStyles.text, 
+                            {margin:10, 
+                              marginTop:10, 
+                              marginBottom:10, 
+                              textAlign:'center'}]}
+                        >
+                          {item.c}
+                        </Text>  
+                    </View>
+                  ))}
+                </View>
+
+                {/* Question Boxes */}
                 <FlatList style={[setStyles.container, {height:"100%",}]}
+                  key={columns.length}
                   data={questions}
                   numColumns={columns.length}
                   renderItem={({ item }) => (
@@ -133,21 +251,45 @@ const Home: React.FC = ({}) => {
             </View>
 
           {/* Teams 3-4 */}
-          <View style={[setStyles.container, {backgroundColor:"#fff", margin:50, borderColor:"#000", borderWidth:2, alignItems:"center", justifyContent:"center", width: "10%"}]}>
+          <View 
+            style={[setStyles.container, 
+            {backgroundColor:"#fff", 
+            margin:50, borderColor:"#000", 
+            borderWidth:2, 
+            alignItems:"center", 
+            justifyContent:"center", 
+            width: "10%"}]}>
+            
             <TextInput 
               style={[setStyles.text, {color:"#000", marginBottom:5, textAlign:"center", maxWidth:'90%'}]}
               value={tName3}
-              onChangeText={setTName3}/>
-            <Text style={[setStyles.text, {color:"#000", marginBottom:5, marginTop:0}]}>{team3}</Text>
-            <View style={[setStyles.row, {flexDirection:"row", alignItems:"center", justifyContent:"center"}]}>
-            <TouchableOpacity style={[{margin:10, marginTop:0}]}
-              onPress={() => setTeam3(team3+points)}>
-              <Ionicons name={"add-circle-outline"} color={"#000"} size={30}/>
-            </TouchableOpacity>
-            <TouchableOpacity style={[{margin:10, marginTop:0}]}
-              onPress={() => setTeam3(team3-points)}>
-              <Ionicons name={"remove-circle-outline"} color={"#000"} size={30}/>
-            </TouchableOpacity>
+              onChangeText={setTName3}
+            />
+
+            <Text style={[setStyles.text, {color:"#000", marginBottom:5, marginTop:0}]}>
+              {team3}
+            </Text>
+
+            <View 
+              style={[setStyles.row, 
+              {flexDirection:"row", alignItems:"center", justifyContent:"center"}]}>
+
+              <TouchableOpacity 
+                style={[{margin:10, marginTop:0}]}
+                onPress={() => setTeam3(team3+points)}>
+
+                  <Ionicons name={"add-circle-outline"} color={"#000"} size={30}/>
+
+              </TouchableOpacity>
+
+              <TouchableOpacity 
+                style={[{margin:10, marginTop:0}]}
+                onPress={() => setTeam3(team3-points)}>
+
+                  <Ionicons name={"remove-circle-outline"} color={"#000"} size={30}/>
+
+              </TouchableOpacity>
+
             </View>
           </View>
 

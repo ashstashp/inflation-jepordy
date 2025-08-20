@@ -57,14 +57,14 @@ export default function App() {
   return (
     <NavigationIndependentTree> {/*NavigationIndependentTree allows for "stacking" of Providers*/}
       <NavigationContainer>
-        <CProvider>
-          <QProvider>
+        <QProvider>
+          <CProvider>
             <PProvider>
               <MyTabs />{/* Renders Tabs */}
               <StatusBar style={'inverted'} />
             </PProvider>
-          </QProvider>
-        </CProvider>
+          </CProvider>
+        </QProvider>
       </NavigationContainer>
     </NavigationIndependentTree>
   );

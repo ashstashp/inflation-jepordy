@@ -1,7 +1,6 @@
 // UpgradeContext.tsx
 // imports required library
 import React, { createContext, useState, useContext, ReactNode, useEffect} from 'react';
-import { useC } from './cContext';
 
 let temp = 5
 // creates an interface: Upgrades
@@ -19,6 +18,8 @@ interface QContextProps {
     removeQ: () => void;
     editQ: (id: number, q: string) => void;
     editA: (id: number, a: string) => void;
+    editPts: (id: number, p: number) => void;
+    setQuestions: (data: any) => void;
 }
 
 // creates UpgradeContext as a context using UpgradeContextProps
@@ -31,7 +32,6 @@ interface QProviderProps {
 
 // creates, and exports UpgradeProvider using UpgradeProviderProps
 export const QProvider: React.FC<QProviderProps> = ({children}) => {
-  const { columns } = useC();
     // creates upgrades and setUpgrade
     const [questions, setQ] = useState<Question[]>([{id: 1, q: "Question 1", a: 'a1', points: 100, used:false},
       {id: 2, q: "Question 2", a: 'a2', points: 100, used:false},
@@ -60,15 +60,18 @@ export const QProvider: React.FC<QProviderProps> = ({children}) => {
       {id: 25, q: "Question 25", a: 'a5', points: 500, used:false},]);
 
       const addQ = () => {
-        const newQ: Question = {
-          id: questions.length + 1,
-          q: `question ${questions.length + 1}`,
-          a: 'n/a',
-          points: (10),
-          used: false
-        }
-        setQ((prevQ) => [...prevQ, newQ])
-      }
+        setQ((prevQ) => {
+          const startId = prevQ.length + 1; // first new ID
+          const newQ = Array.from({ length: 5 }, (_, i) => ({
+            id: startId + i,               // unique ID for each question
+            q: `question ${startId + i}`,
+            a: 'n/a',
+            points: 10,
+            used: false
+          }));
+          return [...prevQ, ...newQ];
+        });
+      };
       const editQ = (id: number, q: string) => {
         setQ(prevQ => prevQ.map(item => item.id == id? {... item, q: q, used: false } : item)
         )
@@ -78,12 +81,17 @@ export const QProvider: React.FC<QProviderProps> = ({children}) => {
         )
       };
       const editPts = (id: number, p: number) => {
-        setQ(prevQ => prevQ.map(item => item.id == id? {... item, p: p } : item)
+        setQ(prevQ => prevQ.map(item => item.id == id? {... item, points: p } : item)
         )
       };
     const removeQ = () => {
-      setQ((prevData) => prevData.filter(item => item.id !== questions.length))
+      setQ((prevData) => prevData.slice(0, -1));
     };
+
+    const setQuestions= (data: any) => {
+      setQ(data);
+    };
+
     // if (questions.length/5 < columns.length) {
     //   for (let i = 0; i <(columns.length - (questions.length/5)); i++) {
     //     addQ()
@@ -98,7 +106,7 @@ export const QProvider: React.FC<QProviderProps> = ({children}) => {
 
     // returns everything in QProvider
     return(
-        <QContext.Provider value={{ questions, addQ, editQ, removeQ, editA }}>
+        <QContext.Provider value={{ questions, addQ, editQ, removeQ, editA, editPts, setQuestions }}>
       {children}
     </QContext.Provider>
     )
