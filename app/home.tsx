@@ -2,7 +2,7 @@
 
 import * as React from 'react'; // Uses the React library
 import { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, FlatList, Modal, TextInput } from 'react-native'; // Uses the React Native library
+import { Text, View, StyleSheet, TouchableOpacity, FlatList, Modal, TextInput, Image } from 'react-native'; // Uses the React Native library
 import { Ionicons } from '@expo/vector-icons'; // Uses the Expo library
 import { useQ } from '../Context/qContext'
 import { useC } from '../Context/cContext'
@@ -17,7 +17,7 @@ const Home: React.FC = ({}) => {
   const[openModal, setOpenModal] = useState(false);
   const[modalQ, setModalQ] = useState('');
   const[modalColor, setModalColor] = useState('');
-  const[modalA, setModalA] = useState('');
+  const[modalA, setModalA] = useState<string>('');
   const[modalID, setModalID] = useState(0)
   const[modalUsed, setModalUsed] = useState(false);
   const [show, setShow] = useState(false);
@@ -42,6 +42,16 @@ const Home: React.FC = ({}) => {
       }
     }
   }
+
+  const isUrl = (str:string) => {
+    if (str.length > 5 && str.slice(0, 5) == "url:") {
+      console.log("Url")
+      return true;
+    } else {
+      console.log("Not Url")
+      return false;
+    };
+  };
 
   const handleOpenPopup = (id: number, q: string, a: string, used: boolean) => {
     let temp = questions.find(item => item.id == id)
@@ -241,7 +251,7 @@ const Home: React.FC = ({}) => {
                   renderItem={({ item }) => (
                       <View style={[setStyles.row, {alignItems: 'center', justifyContent:'center'}]}>
                           <TouchableOpacity style={{backgroundColor: item.used?"#005":"#009",borderColor:"#Ffd700",borderWidth:1}}
-                          onPress={() => {handleOpenPopup(item.id, item.q, item.a, item.used); editA(item.id, questions.length.toString())}}>
+                          onPress={() => {handleOpenPopup(item.id, item.q, item.a, item.used);}}>
                             <Text style={[setStyles.text, {color: "#fff",marginLeft: (item.points==100)?(m+1.45) : (item.points==400)?(m-0.20):(m), marginRight: (item.points==100)?(m + 1.45) : (item.points==400)?(m-0.20):(m)}]}>{item.points}</Text>
                           </TouchableOpacity>
                         </View>
@@ -327,9 +337,21 @@ const Home: React.FC = ({}) => {
               }]}>
                 {modalQ}
             </Text>
+            {show && modalA.startsWith("url:")? // if show
+            <Image
+            source={{ uri: modalA.slice(4) }}
+            style={{ width: 200, height: 200, resizeMode: "contain" }}
+            />
+             : show? // Else If
+
             <Text style={[setStyles.desc, {fontWeight: "500", fontSize: 14,marginLeft:35}]}>
-              {show? modalA: ""}
+              {modalA}
             </Text>
+
+            : // Else
+            <Text style={[setStyles.desc, {fontWeight: "500", fontSize: 14,marginLeft:35}]}>
+              {""}
+            </Text>}
             {!show?
               <TouchableOpacity style={[setStyles.button, {
                 height: 66,

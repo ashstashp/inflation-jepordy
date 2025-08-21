@@ -5,10 +5,11 @@ The current version is v0.2.0, published on Augest 20, 2025.
 
 The current version is a pre-release, and can be unstable.
 
-Updates:
+# Updates:
 
-- Adding Columns
-- Saving Presets
+- Images in Answers. Use the text "url:https://link-to-image.png"
+
+# Extra Info:
 
 This application was created by Ashton Paul.
 

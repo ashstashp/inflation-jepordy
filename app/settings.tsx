@@ -9,7 +9,7 @@ import { useQ } from '@/Context/qContext';
 import { useC } from '@/Context/cContext';
 import { useP } from '@/Context/pContext';
 const aboutText = 
-`Version: Pre-Release 0.2.0
+`Version: Pre-Release 0.3.0
 Date Published (dd/mm/yyyy): 20/08/2025
 
 This program is still in development, and may contain bugs.

@@ -2,12 +2,12 @@ Created on 19/08/2025 (DD/MM/YYYY) version 0.1.1
 
 Document all changes here
 
-Log 1 - 19/08/2025
+Log 1 - 19/08/2025 v0.1.1
 Updated SDK and all dependencies to Expo SDK Version 53.0.0
 
 Fixed Comment 
 
-Log 2 - 19/08/2025
+Log 2 - 19/08/2025 v 0.1.1
 Improved Code Readability in home.tsx
 Improving Comment Discriptiveness in home.tsx
 Adding/Removing columns
@@ -15,7 +15,7 @@ column flatlist to view
 slight question and column syncing
 Nested cContext in qContext in _laybout.tsx
 
-Log 1 - 20/08/2025
+Log 1 - 20/08/2025 v0.2.0
 Finalized Question and Column syncing
 Added Expo FileSystem for preset saving
 preperations to remove pContext.tsx
@@ -26,4 +26,9 @@ removed addQ() for loop in addCol()
 Version update to v0.2.0
 updated package.json, package-lock.json, and app.json to present correct version number
 updated README.md
+
+log 1 - 20/08/2025 v0.3.0
+Added images to Answers
+{URL:<link-to-image.png>}
+Updated README.md
 
